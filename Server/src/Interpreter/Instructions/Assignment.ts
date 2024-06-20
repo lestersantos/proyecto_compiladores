@@ -37,14 +37,14 @@ export default class Assignment implements Instruction {
                 } else {
                     let error = new SysError("Semantico", `Incompatibilidad ${this.identifier}: tipo ${variable?.type.toString()} no puede asignarse tipo ${resExpr.type.toString()}`, this.line, this.column);
                     controller.addError(error);
-                    controller.append(` ***ERROR: Incompatibilidad ${this.identifier}: tipo ${variable?.type.toString()} no puede asignarse tipo ${resExpr.type.toString()}En la linea  ${this.line} y columna ${this.column}`);
+                    //controller.append(`***ERROR: Incompatibilidad ${this.identifier}: tipo ${variable?.type.toString()} no puede asignarse tipo ${resExpr.type.toString()}En la linea  ${this.line} y columna ${this.column}`);
                 }
 
             }
         } else {
             let error = new SysError("Semantico", `La variable ${this.identifier} no existe en la tabla de simbolos `, this.line, this.column);
             controller.addError(error);
-            controller.append(` ***ERROR: La variable ${this.identifier} no existe en la tabla de simbolos. En la linea ${this.line} y columna ${this.column}`);
+            //controller.append(`***ERROR: La variable ${this.identifier} no existe en la tabla de simbolos. En la linea ${this.line} y columna ${this.column}`);
         }
     }
 

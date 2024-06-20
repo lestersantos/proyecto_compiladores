@@ -1,1 +1,3 @@
-# proyecto_compiladores
+# PROYECTO COMPILADORES 
+
+Analizador Léxico y Sintactico 

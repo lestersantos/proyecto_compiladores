@@ -34,7 +34,7 @@ export default class Declaration implements Instruction {
 
                 controller.addError(error);
 
-                controller.append(` ***ERROR: Semantico, La variable ${id} ya existe en el entorno actual, por lo que no se puede declarar. En la linea  ${this.line} y columna ${this.column}`);
+                //controller.append(` ***ERROR: Semantico, La variable ${id} ya existe en el entorno actual, por lo que no se puede declarar. En la linea  ${this.line} y columna ${this.column}`);
                 continue;
             }
 
@@ -64,7 +64,7 @@ export default class Declaration implements Instruction {
 
                     controller.addError(error);
 
-                    controller.append(` ***ERROR: Incompatibilidad ${id}: tipo ${this.declType.toString()} no puede asignarse tipo ${resExpr.type.toString()}. En la linea  ${this.line} y columna ${this.column}`);
+                    //controller.append(`***ERROR: Incompatibilidad ${id}: tipo ${this.declType.toString()} no puede asignarse tipo ${resExpr.type.toString()}. En la linea  ${this.line} y columna ${this.column}`);
                     }
                 }
             } else {

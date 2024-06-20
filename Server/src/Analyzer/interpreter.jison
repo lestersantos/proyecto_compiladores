@@ -165,8 +165,8 @@ character   (\'({escape2} | {acceptance2})\')
 
                       new SysError.default("Lexico"," El caracter "+ yytext 
                       +" no forma parte del lenguaje ",
-                      yylineno + 1,
-                      yylloc.last_column+1);
+                      yylineno + 2,
+                      yylloc.last_column);
                       }
 
 /lex
@@ -289,9 +289,9 @@ instruccion : startwith            {$$ = $1}
             | append_list           {$$ = $1; }
             | list_modification     {$$ = $1; }
             | namespace_declaration SEMICOLON {}
-            | classes                    {}
-            | function_declaration       {}
-            | access_specifiers          {}
+            | classes SEMICOLON          {$$ = $1; }
+            | function_declaration       {$$ = $1; }
+            | access_specifiers          {$$ = $1; }
             | standard_cout         {$$ = $1; }
             | standard_cin          {$$ = $1; }
             | error                 { console.log("Error Sintactico "+yytext + 
@@ -299,7 +299,7 @@ instruccion : startwith            {$$ = $1}
                                                   " columna: "+this._$.first_column);
             
                                      new SysError.default("Sintactico","No se esperaba el caracter "+yytext , 
-                                     this._$.first_line, this._$.first_column);
+                                     this._$.first_line, this._$.last_column);
             
                                      }
             ;
@@ -424,18 +424,19 @@ append_list : APPEND LPAR ID COMMA e RPAR SEMICOLON { $$ = new AppendList.defaul
 list_modification : SETVALUE LPAR ID COMMA e COMMA e RPAR SEMICOLON { $$ = new ListModification.default($3,$5,$7,@1.first_line,@1.last_column);}
                     ;
 
-classes : CLASS ID LCBRACKET instrucciones RCBRACKET SEMICOLON {}
+classes : CLASS ID LCBRACKET instrucciones RCBRACKET {$$ = new Default.default("INST CLASS");}
+        | CLASS ID LCBRACKET  RCBRACKET {$$ = new Default.default("INST CLASS");}
          ;
 
-function_declaration :  decl_type ID LPAR params_list RPAR SEMICOLON {$$ = $1}
+function_declaration :  decl_type ID LPAR params_list RPAR SEMICOLON {$$ = new Default.default("INST FUNCTION DECLARATION");}
                       ;
 
-access_modifiers   : PUBLIC       {}
-                   | PRIVATE      {}
-                   | PROTECTED    {}
+access_modifiers   : PUBLIC       {$$ = new Default.default("ACCESS MODIFIER PUBLIC");}
+                   | PRIVATE      {$$ = new Default.default("ACCESS MODIFIER PRIVATE");}
+                   | PROTECTED    {$$ = new Default.default("ACCESS MODIFIER PROTECTED");}
                    ;
 
-access_specifiers : access_modifiers COLON {$$ = $1}
+access_specifiers : access_modifiers COLON {$$ = new Default.default("ACCESS SPECIFIERS");}
                    ;
 
 standard_cout : COUT INSERTOP e SEMICOLON {$$ = new Default.default("INST COUT"); }

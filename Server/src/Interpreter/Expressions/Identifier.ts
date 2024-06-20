@@ -1,4 +1,5 @@
 import AstNode from "../Ast/AstNode";
+import SysError from "../Ast/SysError";
 import Controller from "../Controller";
 import Expression from "../Interfaces/Expression";
 import SymbolTable from "../SymbolTable/SymbolTable";
@@ -29,6 +30,9 @@ export default class Identifier implements Expression{
             return new Literal(idExist.value, idExist.type.getTypeName());
         } else {
             //TODO: REPORTAR ERROR SEMANTICO
+            let error = new SysError("Semantico", `La variable ${this.id} no existe en la tabla de simbolos `, this.line, this.column);
+            controller.addError(error);
+            //controller.append(`***ERROR: La variable ${this.id} no existe en la tabla de simbolos. En la linea ${this.line} y columna ${this.column}`);
             return new Literal("Error semantico id "+this.id+" no declarado", enumType.ERROR);
         }
     }

@@ -1,0 +1,6 @@
+string var = "hola mund";
+
+var = "nuevo texto"
+
+var = 10;
+

@@ -1,0 +1,20 @@
+name: comp1
+
+services: 
+    app:
+      build: ./Server
+      container_name: "${COMPOSE_PROJECT_NAME}-web-server-umg"
+      ports:
+      - "3000:3000"
+      volumes:
+      - ./Server:/app
+    web: 
+      build: ./Client
+      container_name: "${COMPOSE_PROJECT_NAME}-client-umg"
+      # Always: restart the container if it stops. If it is manually stopped, 
+      # it is restarted only when Docker daemon restarts or the container itself is manually restarted
+      restart: unless-stopped
+      ports:
+        - "8080:80"
+      volumes:
+      - ./Client:/usr/share/nginx/html

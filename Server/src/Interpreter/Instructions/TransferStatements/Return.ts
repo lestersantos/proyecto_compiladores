@@ -15,8 +15,8 @@ export default class Return implements Instruction {
     execute(controller: Controller, symbolTable: SymbolTable) {
 
         if (this.returnValue != null) {
-            console.log("Msg: From return class <> ");
-            console.log(this.returnValue.getValue(controller,symbolTable));
+            //console.log("Msg: From return class <> ");
+            //console.log(this.returnValue.getValue(controller,symbolTable));
             return this.returnValue.getValue(controller, symbolTable);
         } else {
             //console.log("return sin expresion");

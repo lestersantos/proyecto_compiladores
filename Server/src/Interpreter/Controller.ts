@@ -64,7 +64,8 @@ export default class Controller {
     }
 
     graphErrorsTable(controller : Controller) : string{
-        console.log("lista de errores "+errorList.SysError.length);
+        console.log("lista de errores lexicos y sintcaticos "+errorList.SysError.length);
+        this.append("Cantidad errores lexicos y/o sintcaticos "+errorList.SysError.length);
         var htmlBody = "<thead  class=\"thead-dark\"><tr><td colspan=\"6\">Tabla de Errores </td></tr><tr><th>Tipo de Error</th><th>Descripcion</th><th>Linea</th><th>Columna</th></tr></thead>";
         
         for(let sysError of errorList.SysError){
@@ -75,6 +76,8 @@ export default class Controller {
                     + sysError.line.toString() + "</td>" +
                     "</td><td>" + sysError.column.toString() + "</tr>";
         }
+
+        this.append("Cantidad errores semanticos "+controller.errors.length);
         for(let sysError of controller.errors){
             console.log("tipo: "+ sysError.errorType+" desc: "+sysError.description);
             htmlBody += "<tr ><th scope=\"row\">" 
